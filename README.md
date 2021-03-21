@@ -10,6 +10,15 @@ Dependencies:
 
 Part of this project involves configuring a Spring application to connect to an external data source. Before beginning this project, you must install a database to connect to. Here are [instructions for installing MySQL 8](https://dev.mysql.com/doc/refman/8.0/en/installing.html).
 
+### Database setup
+run the following query in 
+```
+CREATE SCHEMA `hbuDatabase` ; -- Create the plant database
+
+CREATE USER 'hbuAdmin'@'localhost' IDENTIFIED BY 'hbu12345'; -- Create the user if you haven’t yet
+GRANT ALL ON hbuDatabase.* TO 'hbuAdmin'@'localhost';
+```
+
 ### Installation
 
 1. Clone or download this repository.
@@ -20,15 +29,6 @@ Part of this project involves configuring a Spring application to connect to an 
 6. Open a browser and navigate to the url: [http://localhost:8082/demo/home](http://localhost:8082/demo/home)
 
 You should see the message "HBU Starter installed successfully" in your browser.
-
-### Database setup
-run the following query in 
-```
-CREATE SCHEMA `hbuDatabase` ; -- Create the plant database
-
-CREATE USER 'hbuAdmin'@'localhost' IDENTIFIED BY 'hbu12345'; -- Create the user if you haven’t yet
-GRANT ALL ON hbuDatabase.* TO 'hbuAdmin'@'localhost';
-```
 
 ### Database Connection Testing
 * Open terminal
