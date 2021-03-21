@@ -32,7 +32,7 @@ You should see the message "HBU Starter installed successfully" in your browser.
 
 ### Database Connection Testing
 * Open terminal
-* run `curl localhost:8082/demo/add -d name=First -d email=someemail@someemailprovider.com'`
+* run `curl localhost:8082/demo/add -d name=First -d email=someemail@someemailprovider.com`
 * The reply should be *Saved*
-* run `curl 'localhost:8080/demo/all'`
+* run `curl localhost:8082/demo/all`
 * The reply should be as follows: *[{"id":1,"name":"First","email":"someemail@someemailprovider.com"}]*
