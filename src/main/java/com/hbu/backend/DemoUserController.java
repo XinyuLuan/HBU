@@ -40,7 +40,7 @@ public class DemoUserController {
 
     @GetMapping(path="/home")
     public String toHomeView(Model model){
-        model.addAttribute("testingText", "testing testing testing");
+        model.addAttribute("testingText", "HBU Starter installed successfully");
         return "home";
     }
 }
