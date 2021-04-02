@@ -1,5 +1,4 @@
 package com.hbu.backend.model.entity;
 
-public class Course {
-
+public class Message {
 }
