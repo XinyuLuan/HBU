@@ -7,10 +7,15 @@ import java.util.List;
 public class StudentDTO {
     // what about the university id? gpa info?
     private long id;
+    private String studentId;
     private String firstName;
     private String lastName;
     private String email;
     private List<Course> courses;
+    private String startTime;
+    private String endTime;
+    private boolean gurdated;
+
 
     public StudentDTO() {
     }

@@ -1,11 +1,18 @@
 package com.hbu.backend.controller;
 
+import com.hbu.backend.model.dto.StudentScriptDTO;
 import com.hbu.backend.model.entity.Course;
+import com.hbu.backend.model.request.StudentRequestAccessAcademic;
 import com.hbu.backend.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/api/student")
 public class StudentController {
 
     private final static String TAG_ = "StudentController";
@@ -53,6 +60,18 @@ public class StudentController {
     public boolean updateProfile(long studentID){
 
         return false;
+    }
+
+//    @GetMapping("/academicpage")
+//    public String goAcademicsPage(StudentRequestAccessAcademic request){
+//        //process the request
+//        return "academicpage";
+//    }
+
+    @GetMapping("/unofficaltrascript")
+    public String goUnofficalTrascript(StudentRequestAccessAcademic request){
+        //process the request
+        StudentScriptDTO s = studentService.getUnofficalTrscipt(...., ....);
     }
 
     // login to dashboard
