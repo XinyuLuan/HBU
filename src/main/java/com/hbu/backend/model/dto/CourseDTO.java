@@ -13,6 +13,7 @@ public class CourseDTO {
     private String Title;
     private String classSubject;
     private Long InstructorId;
+    private String courseNumber;
 //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDateTime startTime;
 //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
@@ -40,6 +41,14 @@ public class CourseDTO {
 
     public void setClassSubject(String classSubject) {
         this.classSubject = classSubject;
+    }
+
+    public String getCourseNumber() {
+        return courseNumber;
+    }
+
+    public void setCourseNumber(String courseNumber) {
+        this.courseNumber = courseNumber;
     }
 
     public Long getInstructorId() {

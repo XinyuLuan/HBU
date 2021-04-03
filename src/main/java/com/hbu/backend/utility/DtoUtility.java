@@ -12,6 +12,7 @@ public class DtoUtility {
         courseDTO.setCourseId(course.getCourseId());
         courseDTO.setTitle(course.getTitle());
         courseDTO.setClassSubject(course.getClassSubject());
+        courseDTO.setCourseNumber(course.getCourseNumber());
 //        courseDTO.setInstructorId(course.getInstructor().getId());
         courseDTO.setStartTime(course.getStartTime());
         courseDTO.setEndTime(course.getEndTime());
@@ -23,6 +24,7 @@ public class DtoUtility {
         course.setCourseId(courseDTO.getCourseId());
         course.setClassSubject(courseDTO.getClassSubject());
         course.setTitle(courseDTO.getTitle());
+        course.setCourseNumber(courseDTO.getCourseNumber());
         course.setStartTime(courseDTO.getStartTime());
         course.setEndTime(courseDTO.getEndTime());
         return course;

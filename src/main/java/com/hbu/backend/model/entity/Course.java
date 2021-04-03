@@ -20,6 +20,9 @@ public class Course {
     @Nationalized
     private String classSubject;
 
+    @Nationalized
+    private String courseNumber;
+
     @ManyToOne
     private Instructor instructor;
 
