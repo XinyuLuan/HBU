@@ -1,15 +1,21 @@
 package com.hbu.backend.model.dto;
 
 
+import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDateTime;
 
 // reference: https://lucid.app/lucidchart/a896735c-2466-4dcd-8d67-2851ce3d98b0/edit?beaconFlowId=6357EB40A9CF55A9&page=0_0#?folder_id=home&browser=icon
+@ToString(includeFieldNames = true)
 public class CourseDTO {
     private Long courseId;
     private String Title;
     private String classSubject;
     private Long InstructorId;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDateTime startTime;
+//    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDateTime endTime;
 
     public Long getCourseId() {

@@ -8,18 +8,83 @@ import com.hbu.backend.model.entity.Admin;
 import com.hbu.backend.model.entity.Course;
 import com.hbu.backend.model.entity.Instructor;
 import com.hbu.backend.model.entity.Student;
+import com.hbu.backend.service.AdminService;
+import com.hbu.backend.utility.DtoUtility;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+    String _Tag = "AdminController ";
+    String _ErrorAdmin = "Admin ";
 
+    @Autowired
+    AdminService adminService;
+
+    /**
+     * for admins
+     */
+    @PostMapping
+    public ResponseEntity<AdminDTO> addAdmin(@RequestBody AdminDTO adminDTO){
+        Admin admin = DtoUtility.toAdmin(adminDTO);
+        Admin newAdmin = adminService.addAdmin(admin);
+        return new ResponseEntity<AdminDTO>(DtoUtility.toAdminDTO(newAdmin), HttpStatus.OK);
+    }
+
+    @GetMapping("/{adminId}")
+    public ResponseEntity<AdminDTO> getAdmin(@PathVariable long adminId) {
+        Admin admin = adminService.findAdmin(adminId);
+
+        if(admin == null){
+            return new ResponseEntity(_ErrorAdmin + adminId + "NOT EXIST", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<AdminDTO>(DtoUtility.toAdminDTO(admin), HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<AdminDTO>> getAllAdmins(){
+        List<Admin> admins = adminService.findAllAdmin();
+
+        List<AdminDTO> adminDTOs = new ArrayList<>();
+        for(Admin admin : admins){
+            adminDTOs.add(DtoUtility.toAdminDTO(admin));
+        }
+
+        return new ResponseEntity<List<AdminDTO>>(adminDTOs, HttpStatus.OK);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<AdminDTO> updateAdmin(@RequestBody AdminDTO adminDTO, @PathVariable Long id){
+        Admin admin = adminService.updateAdmin(DtoUtility.toAdmin(adminDTO), id);
+
+        if(admin == null){
+            return new ResponseEntity(_ErrorAdmin + id + " NOT EXIST", HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<AdminDTO>(DtoUtility.toAdminDTO(admin), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Long> deleteAdmin(@PathVariable Long id) {
+        Admin admin = adminService.findAdmin(id);
+
+        if(admin == null){
+            return new ResponseEntity(_ErrorAdmin + id + " NOT EXIST", HttpStatus.BAD_REQUEST);
+        }
+
+        adminService.deleteAdmin(admin);
+        return new ResponseEntity("Deleted Admin " + id, HttpStatus.OK);
+    }
+
+    /**
+     * for students
+     */
     @PostMapping("/student")
     public ResponseEntity<StudentDTO> saveStudent(@RequestBody StudentDTO studentDTO){
         throw new UnsupportedOperationException();
@@ -112,31 +177,4 @@ public class AdminController {
     public ResponseEntity<InstructorDTO> getCourseByInstructor(@PathVariable long instructorId){
         throw new UnsupportedOperationException();
     }
-
-    // ------------ admin --------------
-    @PostMapping
-    public ResponseEntity<AdminDTO> saveAdmin(@RequestBody AdminDTO adminDTO) {
-        throw new UnsupportedOperationException();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Long> deleteAdmin(@PathVariable Long id) {
-        throw new UnsupportedOperationException();
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<AdminDTO> updateAdmin(@RequestBody AdminDTO adminDTO){
-        throw new UnsupportedOperationException();
-    }
-
-    @GetMapping("/{adminId}")
-    public ResponseEntity<AdminDTO> getAdmin(@PathVariable long adminId) {
-        throw new UnsupportedOperationException();
-    }
-
-    @GetMapping
-    public ResponseEntity<List<AdminDTO>> getAllAdmins(){
-        throw new UnsupportedOperationException();
-    }
-
 }
