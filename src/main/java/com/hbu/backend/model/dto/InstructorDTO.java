@@ -2,6 +2,7 @@ package com.hbu.backend.model.dto;
 
 import com.hbu.backend.model.entity.Course;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -17,12 +18,15 @@ public class InstructorDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private Set<Course> courses;
+    private String username;
+    private List<Course> courses;
 
-    public InstructorDTO(long id, String firstName, String lastName, String email, Set<Course> courses) {
+    public InstructorDTO(long id, String firstName, String lastName, String email, String username, List<Course> courses) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+        this.username = username;
         this.courses = courses;
     }
 
@@ -53,11 +57,11 @@ public class InstructorDTO {
         this.lastName = lastName;
     }
 
-    public Set<Course> getCourses() {
+    public List<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(Set<Course> courses) {
+    public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
 
@@ -67,5 +71,13 @@ public class InstructorDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

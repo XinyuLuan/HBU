@@ -1,9 +1,79 @@
 package com.hbu.backend.model.dto;
 
+import lombok.ToString;
+
+import java.time.LocalDateTime;
+
+@ToString(includeFieldNames = true)
 public class CourseDTO {
     // start and end date ex: from start: month/date/year - end: month/date/year
     // start and end time ex: start: XX:XX:XX am/pm - end: XX:XX:XX am/pm
     // name
     // description
     // unit quantity
+    private Long courseId;
+    private String Title;
+    private String classSubject;
+    private Long InstructorId;
+    private String courseNumber;
+    //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDateTime startTime;
+    //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDateTime endTime;
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
+    public String getTitle() {
+        return Title;
+    }
+
+    public void setTitle(String title) {
+        Title = title;
+    }
+
+    public String getClassSubject() {
+        return classSubject;
+    }
+
+    public void setClassSubject(String classSubject) {
+        this.classSubject = classSubject;
+    }
+
+    public String getCourseNumber() {
+        return courseNumber;
+    }
+
+    public void setCourseNumber(String courseNumber) {
+        this.courseNumber = courseNumber;
+    }
+
+    public Long getInstructorId() {
+        return InstructorId;
+    }
+
+    public void setInstructorId(Long instructorId) {
+        InstructorId = instructorId;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
+    }
 }
