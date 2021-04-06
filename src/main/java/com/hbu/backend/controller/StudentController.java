@@ -5,6 +5,7 @@ import com.hbu.backend.model.dto.StudentTranscriptDTO;
 import com.hbu.backend.model.entity.Course;
 import com.hbu.backend.model.entity.Student;
 import com.hbu.backend.model.request.StudentRequestAccessAcademic;
+import com.hbu.backend.model.utility.DtoUtility;
 import com.hbu.backend.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,79 +25,56 @@ public class StudentController {
     @Autowired
     StudentService studentService;
 
-    // convert entity to DTO
-    private StudentDTO convertStudentToStudentDTO(Student student) {
-        return new StudentDTO(student.getId(), student.getStudentId(), student.getFirstName(), student.getLastName(), student.getEmail(), student.getUsername(), student.getCourses());
-    }
-
-    // convert DTO to entity
-    private Student convertStudentDtoToStudent(StudentDTO studentDTO) {
-        Student student = new Student();
-        student.setId(studentDTO.getId());
-        student.setStudentId(studentDTO.getStudentId());
-        student.setFirstName(studentDTO.getFirstName());
-        student.setLastName(studentDTO.getLastName());
-        student.setEmail(studentDTO.getEmail());
-        student.setUsername(studentDTO.getEmail());
-        student.setCourses(studentDTO.getCourses());
-        return student;
-    }
-
     @PostMapping
-    public StudentDTO addStudent(@RequestBody StudentDTO studentDTO) {
-        Student student = convertStudentDtoToStudent(studentDTO);
-        StudentDTO convertedStudent;
-        try {
-            convertedStudent = convertStudentToStudentDTO(studentService.addStudent(student));
-        } catch (Exception exception) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Student could not be saved", exception);
-        }
-        return convertedStudent;
+    public ResponseEntity<StudentDTO> addStudent(@RequestBody StudentDTO studentDTO){
+        Student student = DtoUtility.toStudent(studentDTO);
+        Student newStudent = studentService.addStudent(student);
+        return new ResponseEntity<StudentDTO>(DtoUtility.toStudentDTO(newStudent), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public StudentDTO getStudent(@PathVariable Long id) {
-        Student student;
-        try {
-            student = studentService.findStudent(id);
-        } catch (Exception exception) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Student with id: " + id + " not found", exception);
+    @GetMapping("/{studentId}")
+    public ResponseEntity<StudentDTO> getStudent(@PathVariable long studentId) {
+        Student student = studentService.findStudent(studentId);
+
+        if(student == null){
+            return new ResponseEntity("Student "  + studentId + " DOES NOT EXIST", HttpStatus.BAD_REQUEST);
         }
-        return convertStudentToStudentDTO(student);
+
+        return new ResponseEntity<StudentDTO>(DtoUtility.toStudentDTO(student), HttpStatus.OK);
     }
 
     @GetMapping
-    public List<StudentDTO> getAllStudents() {
+    public ResponseEntity<List<StudentDTO>> getAllStudents(){
         List<Student> students = studentService.findAllStudents();
 
         List<StudentDTO> studentDTOs = new ArrayList<>();
-        for(Student student : students) {
-            studentDTOs.add(convertStudentToStudentDTO(student));
+        for(Student student : students){
+            studentDTOs.add(DtoUtility.toStudentDTO(student));
         }
-        return studentDTOs;
+
+        return new ResponseEntity<List<StudentDTO>>(studentDTOs, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public StudentDTO updateStudent(@RequestBody StudentDTO studentDTO, @PathVariable Long id) {
-        Student student;
-        try {
-            student = studentService.updateStudent(convertStudentDtoToStudent(studentDTO), id);
-        } catch (Exception exception) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Student object is null", exception);
+    public ResponseEntity<StudentDTO> updateStudent(@RequestBody StudentDTO studentDTO, @PathVariable Long id){
+        Student student = studentService.updateStudent(DtoUtility.toStudent(studentDTO), id);
+
+        if(student == null){
+            return new ResponseEntity("Student " + id + " DOES NOT EXIST", HttpStatus.BAD_REQUEST);
         }
-        return convertStudentToStudentDTO(student);
+        return new ResponseEntity<StudentDTO>(DtoUtility.toStudentDTO(student), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteStudent(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteStudent(@PathVariable Long id) {
         Student student = studentService.findStudent(id);
 
-        if (student == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "student " + id + " does not exist");
+        if(student == null){
+            return new ResponseEntity("Student " + id + " DOES NOT EXIST", HttpStatus.BAD_REQUEST);
         }
 
         studentService.deleteStudent(student);
-        return new ResponseEntity("Deleted " + id, HttpStatus.OK);
+        return new ResponseEntity("Deleted Student " + id, HttpStatus.OK);
     }
 
     // add course

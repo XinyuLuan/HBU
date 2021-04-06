@@ -2,6 +2,7 @@ package com.hbu.backend.controller;
 
 import com.hbu.backend.model.dto.InstructorDTO;
 import com.hbu.backend.model.entity.Instructor;
+import com.hbu.backend.model.utility.DtoUtility;
 import com.hbu.backend.service.InstructorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,78 +30,56 @@ public class InstructorController {
     @Autowired
     InstructorService instructorService;
 
-    //convert entity to DTO
-    private InstructorDTO convertInstructorToInstructorDTO(Instructor instructor) {
-        return new InstructorDTO(instructor.getId(), instructor.getFirstName(), instructor.getLastName(), instructor.getEmail(), instructor.getUsername(), instructor.getCourses());
-    }
-
-    // convert DTO to entity
-    private Instructor convertInstructorDtoToInstructor(InstructorDTO instructorDTO) {
-        Instructor instructor = new Instructor();
-        instructor.setId(instructorDTO.getId());
-        instructor.setFirstName(instructorDTO.getFirstName());
-        instructor.setLastName(instructorDTO.getLastName());
-        instructor.setEmail(instructorDTO.getEmail());
-        instructor.setUsername(instructorDTO.getUsername());
-        instructor.setCourses(instructorDTO.getCourses());
-        return instructor;
-    }
-
     @PostMapping
-    public InstructorDTO addInstructor(@RequestBody InstructorDTO instructorDTO) {
-        Instructor instructor = convertInstructorDtoToInstructor(instructorDTO);
-        InstructorDTO convertedInstructor;
-        try {
-            convertedInstructor = convertInstructorToInstructorDTO(instructorService.addInstructor(instructor));
-        } catch (Exception exception) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Instructor could not be saved", exception);
-        }
-        return convertedInstructor;
+    public ResponseEntity<InstructorDTO> addInstructor(@RequestBody InstructorDTO instructorDTO) {
+        Instructor instructor = DtoUtility.toInstructor(instructorDTO);
+        Instructor newInstructor = instructorService.addInstructor(instructor);
+        return new ResponseEntity<InstructorDTO>(DtoUtility.toInstructorDTO(newInstructor), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public InstructorDTO getInstructor(@PathVariable Long id) {
-        Instructor instructor;
-        try {
-            instructor = instructorService.findInstructor(id);
-        } catch (Exception exception) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Instructor with id: " + id + "not found", exception);
+    @GetMapping("/{instructorId}")
+    public ResponseEntity<InstructorDTO> getInstructor(@PathVariable long instructorId) {
+        Instructor instructor = instructorService.findInstructor(instructorId);
+
+        if(instructor == null){
+            return new ResponseEntity("Instructor " + instructorId + " DOES NOT EXIST", HttpStatus.BAD_REQUEST);
         }
-        return convertInstructorToInstructorDTO(instructor);
+
+        return new ResponseEntity<InstructorDTO>(DtoUtility.toInstructorDTO(instructor), HttpStatus.OK);
     }
 
     @GetMapping
-    public List<InstructorDTO> getAllInstructors() {
+    public ResponseEntity<List<InstructorDTO>> getAllInstructors(){
         List<Instructor> instructors = instructorService.findAllInstructors();
 
         List<InstructorDTO> instructorDTOs = new ArrayList<>();
-        for(Instructor instructor : instructors) {
-            instructorDTOs.add(convertInstructorToInstructorDTO(instructor));
+        for(Instructor instructor : instructors){
+            instructorDTOs.add(DtoUtility.toInstructorDTO(instructor));
         }
-        return instructorDTOs;
+
+        return new ResponseEntity<List<InstructorDTO>>(instructorDTOs, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
-    public InstructorDTO updateInstructor(@RequestBody InstructorDTO instructorDTO, @PathVariable Long id) {
-        Instructor instructor;
-        try {
-            instructor = instructorService.updateInstructor(convertInstructorDtoToInstructor(instructorDTO), id);
-        } catch (Exception exception) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Instructor object is null", exception);
+    public ResponseEntity<InstructorDTO> updateInstructor(@RequestBody InstructorDTO instructorDTO, @PathVariable Long id){
+        Instructor instructor = instructorService.updateInstructor(DtoUtility.toInstructor(instructorDTO), id);
+
+        if(instructor == null){
+            return new ResponseEntity("Instructor " + id + " DOES NOT EXIST", HttpStatus.BAD_REQUEST);
         }
-        return convertInstructorToInstructorDTO(instructor);
+        return new ResponseEntity<InstructorDTO>(DtoUtility.toInstructorDTO(instructor), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteInstructor(@PathVariable Long id) {
+    public ResponseEntity<Long> deleteInstructor(@PathVariable Long id) {
         Instructor instructor = instructorService.findInstructor(id);
 
-        if (instructor == null) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "instructor " + id + " does not exist");
+        if(instructor == null){
+            return new ResponseEntity("Instructor " + id + " DOES NOT EXIST", HttpStatus.BAD_REQUEST);
         }
 
         instructorService.deleteInstructor(instructor);
-        return new ResponseEntity("Deleted " + id, HttpStatus.OK);
+        return new ResponseEntity("Deleted Instructor " + id, HttpStatus.OK);
     }
 
     // add class & drop class functionalities reserved for admin only?
