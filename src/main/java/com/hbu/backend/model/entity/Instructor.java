@@ -2,15 +2,30 @@ package com.hbu.backend.model.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.hibernate.annotations.Nationalized;
 
-@Entity
+import javax.persistence.*;
+import java.util.List;
+
 @Data
+@Entity
+@Table(name="instructor")
 public class Instructor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
+    private Long Id;
+
+    @Nationalized
+    private String firstName;
+    @Nationalized
+    private String lastName;
+    @Nationalized
+    private String email;
+    @Nationalized
+    private String username;
+    @Nationalized
+    private String password;
+
+    @OneToMany
+    private List<Course> courses;
 }

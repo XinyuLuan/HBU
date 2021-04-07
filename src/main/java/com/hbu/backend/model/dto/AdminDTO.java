@@ -1,6 +1,7 @@
 package com.hbu.backend.model.dto;
 
 public class AdminDTO {
+
     private Long adminId;
     private String firstName;
     private String lastName;
