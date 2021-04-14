@@ -1,8 +1,7 @@
 package com.hbu.backend.controller;
 
 import com.hbu.backend.model.dto.StudentDTO;
-import com.hbu.backend.model.dto.StudentTranscriptDTO;
-import com.hbu.backend.model.entity.Course;
+import com.hbu.backend.model.entity.course.Course;
 import com.hbu.backend.model.entity.Student;
 import com.hbu.backend.model.request.StudentRequestAccessAcademic;
 import com.hbu.backend.model.utility.DtoUtility;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;

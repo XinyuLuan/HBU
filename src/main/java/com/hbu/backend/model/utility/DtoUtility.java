@@ -1,11 +1,9 @@
 package com.hbu.backend.model.utility;
 
-import com.hbu.backend.model.dto.AdminDTO;
-import com.hbu.backend.model.dto.CourseDTO;
+import com.hbu.backend.model.dto.course.CourseDTO;
 import com.hbu.backend.model.dto.InstructorDTO;
 import com.hbu.backend.model.dto.StudentDTO;
-import com.hbu.backend.model.entity.Admin;
-import com.hbu.backend.model.entity.Course;
+import com.hbu.backend.model.entity.course.Course;
 import com.hbu.backend.model.entity.Instructor;
 import com.hbu.backend.model.entity.Student;
 
@@ -17,8 +15,8 @@ public class DtoUtility {
         courseDTO.setClassSubject(course.getClassSubject());
         courseDTO.setCourseNumber(course.getCourseNumber());
 //        courseDTO.setInstructorId(course.getInstructor().getId());
-        courseDTO.setStartTime(course.getStartTime());
-        courseDTO.setEndTime(course.getEndTime());
+//        courseDTO.setStartTime(course.getStartTime());
+//        courseDTO.setEndTime(course.getEndTime());
         return courseDTO;
     }
 
@@ -28,8 +26,8 @@ public class DtoUtility {
         course.setClassSubject(courseDTO.getClassSubject());
         course.setTitle(courseDTO.getTitle());
         course.setCourseNumber(courseDTO.getCourseNumber());
-        course.setStartTime(courseDTO.getStartTime());
-        course.setEndTime(courseDTO.getEndTime());
+//        course.setStartTime(courseDTO.getStartTime());
+//        course.setEndTime(courseDTO.getEndTime());
         return course;
     }
 

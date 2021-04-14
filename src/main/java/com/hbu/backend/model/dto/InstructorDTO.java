@@ -1,9 +1,8 @@
 package com.hbu.backend.model.dto;
 
-import com.hbu.backend.model.entity.Course;
+import com.hbu.backend.model.entity.course.Course;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * What inputs are we receiving as an instructor?

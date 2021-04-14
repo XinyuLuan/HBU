@@ -1,5 +1,6 @@
 package com.hbu.backend.model.entity;
 
+import com.hbu.backend.model.entity.course.Course;
 import lombok.Data;
 import org.hibernate.annotations.Nationalized;
 

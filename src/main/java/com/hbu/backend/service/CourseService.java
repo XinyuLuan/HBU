@@ -1,12 +1,11 @@
 package com.hbu.backend.service;
 
-import com.hbu.backend.model.entity.Course;
+import com.hbu.backend.model.entity.course.Course;
 import com.hbu.backend.repository.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CourseService {
@@ -47,8 +46,8 @@ public class CourseService {
         foundCourse.setTitle(course.getTitle());
 //        foundCourse.setInstructor(course.getInstructor());
         foundCourse.setClassSubject(course.getClassSubject());
-        foundCourse.setStartTime(course.getStartTime());
-        foundCourse.setEndTime(course.getEndTime());
+//        foundCourse.setStartTime(course.getStartTime());
+//        foundCourse.setEndTime(course.getEndTime());
         return courseRepository.save(foundCourse);
     }
 

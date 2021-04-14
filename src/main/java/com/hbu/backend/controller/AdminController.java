@@ -1,13 +1,10 @@
 package com.hbu.backend.controller;
 
 import com.hbu.backend.model.dto.AdminDTO;
-import com.hbu.backend.model.dto.CourseDTO;
+import com.hbu.backend.model.dto.course.CourseDTO;
 import com.hbu.backend.model.dto.InstructorDTO;
 import com.hbu.backend.model.dto.StudentDTO;
 import com.hbu.backend.model.entity.Admin;
-import com.hbu.backend.model.entity.Course;
-import com.hbu.backend.model.entity.Instructor;
-import com.hbu.backend.model.entity.Student;
 import com.hbu.backend.service.AdminService;
 import com.hbu.backend.utility.DtoUtility;
 import org.springframework.beans.factory.annotation.Autowired;

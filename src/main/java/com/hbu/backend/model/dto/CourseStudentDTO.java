@@ -1,5 +1,7 @@
 package com.hbu.backend.model.dto;
 
+import com.hbu.backend.model.dto.course.CourseDTO;
+
 public class CourseStudentDTO {
     private StudentDTO student;
     private CourseDTO course;

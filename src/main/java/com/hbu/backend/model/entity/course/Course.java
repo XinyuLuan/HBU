@@ -1,4 +1,4 @@
-package com.hbu.backend.model.entity;
+package com.hbu.backend.model.entity.course;
 
 import lombok.Data;
 import org.hibernate.annotations.Nationalized;
@@ -23,9 +23,9 @@ public class Course {
     @Nationalized
     private String courseNumber;
 
-    @ManyToOne
-    private Instructor instructor;
-
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
+//    @ManyToOne
+//    private Instructor instructor;
+//
+//    private LocalDateTime startTime;
+//    private LocalDateTime endTime;
 }

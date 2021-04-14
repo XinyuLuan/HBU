@@ -1,8 +1,7 @@
 package com.hbu.backend.controller;
 
-import com.hbu.backend.model.dto.CourseDTO;
-import com.hbu.backend.model.dto.StudentDTO;
-import com.hbu.backend.model.entity.Course;
+import com.hbu.backend.model.dto.course.CourseDTO;
+import com.hbu.backend.model.entity.course.Course;
 import com.hbu.backend.service.CourseService;
 import com.hbu.backend.utility.DtoUtility;
 import lombok.extern.slf4j.Slf4j;
@@ -10,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sun.jvm.hotspot.runtime.bsd_amd64.BsdAMD64JavaThreadPDAccess;
 
-import javax.websocket.server.PathParam;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +29,7 @@ public class CourseController {
         Course course = DtoUtility.toCourseEntity(courseDTO);
         // map to Instructor here
         // if not found the Instructor, return response false
-//        log.info(_Tag + course.toString());
+        // log.info(_Tag + course.toString());
         Course newCourse = courseService.saveCourse(course);
         return new ResponseEntity<CourseDTO>(DtoUtility.toCourseDTO(newCourse), HttpStatus.OK);
     }

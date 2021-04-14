@@ -1,8 +1,5 @@
 package com.hbu.backend.service;
 
-import com.hbu.backend.model.dto.StudentDTO;
-import com.hbu.backend.model.dto.StudentTranscriptDTO;
-import com.hbu.backend.model.entity.Course;
 import com.hbu.backend.model.entity.Student;
 import com.hbu.backend.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
