@@ -2,6 +2,9 @@ package com.hbu.backend.model.entity;
 
 import lombok.ToString;
 
+import javax.persistence.Entity;
+
+@Entity
 @ToString(includeFieldNames = true)
 public class File {
 

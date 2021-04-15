@@ -58,6 +58,7 @@ public class StudentService {
         foundStudent.setStudentId(student.getStudentId());
         foundStudent.setFirstName(student.getFirstName());
         foundStudent.setLastName(student.getLastName());
+        // needs email, username, and password
         return studentRepository.save(foundStudent);
     }
 

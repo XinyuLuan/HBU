@@ -32,19 +32,19 @@ public class Student {
     @OneToMany
     private List<Course> courses;
 
-//    public Student(String studentId, String firstName, String lastName, String email, String username, String password, List<Course> courses) {
-//        this.id = id;
-//        this.studentId = studentId;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
-//        this.username = username;
-//        this.password = password;
-//        this.courses = courses;
-//    }
-//
-//    public Student() {
-//    }
+    public Student(String studentId, String firstName, String lastName, String email, String username, String password, List<Course> courses) {
+        this.id = id;
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.courses = courses;
+    }
+
+    public Student() {
+    }
 //
 //    public Long getId() {
 //        return id;
