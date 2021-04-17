@@ -31,20 +31,20 @@ public class DtoUtility {
         return course;
     }
 
-//    public static AdminDTO toAdminDTO(Admin admin){
-//        AdminDTO adminDTO = new AdminDTO();
-//        adminDTO.setFirstName(admin.getFirstName());
-//        adminDTO.setLastName(admin.getLastName());
-//        adminDTO.setAdminId(admin.getAdminId());
-//        return adminDTO;
-//    }
-//
-//    public static  Admin toAdmin(AdminDTO adminDTO){
-//        Admin admin = new Admin();
-//        admin.setFirstName(adminDTO.getFirstName());
-//        admin.setLastName(adminDTO.getLastName());
-//        return admin;
-//    }
+    public static AdminDTO toAdminDTO(Admin admin){
+        AdminDTO adminDTO = new AdminDTO();
+        adminDTO.setFirstName(admin.getFirstName());
+        adminDTO.setLastName(admin.getLastName());
+        adminDTO.setAdminId(admin.getAdminId());
+        return adminDTO;
+    }
+
+    public static  Admin toAdmin(AdminDTO adminDTO){
+        Admin admin = new Admin();
+        admin.setFirstName(adminDTO.getFirstName());
+        admin.setLastName(adminDTO.getLastName());
+        return admin;
+    }
 
     public static StudentDTO toStudentDTO(Student student) {
         return new StudentDTO(student.getId(), student.getStudentId(), student.getFirstName(), student.getLastName(), student.getEmail(), student.getUsername(), student.getCourses());
