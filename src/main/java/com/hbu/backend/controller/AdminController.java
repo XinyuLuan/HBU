@@ -19,7 +19,7 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
     String _Tag = "AdminController ";
-    String _ErrorAdmin = "Admin ";
+    String _ErrorAdmin = "_ErrorAdmin ";
 
     @Autowired
     AdminService adminService;

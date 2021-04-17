@@ -1,6 +1,5 @@
 package com.hbu.backend.model.entity.course;
 
-import com.hbu.backend.model.entity.course.component.Component;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;

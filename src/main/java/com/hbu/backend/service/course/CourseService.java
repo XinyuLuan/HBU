@@ -1,7 +1,7 @@
-package com.hbu.backend.service;
+package com.hbu.backend.service.course;
 
 import com.hbu.backend.model.entity.course.Course;
-import com.hbu.backend.repository.CourseRepository;
+import com.hbu.backend.repository.course.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
