@@ -6,13 +6,12 @@ import com.hbu.backend.model.entity.Student;
 import javax.persistence.Entity;
 import java.util.List;
 
-@Entity
+//@Entity
 public class CourseModule {
-    private Long id;
-    private Course course;
-    private Instructor instructor;
-    private List<Chapter> chapters;
-    private List<Section> sections;
-    private List<Student> students;
+//    private Long id;
+//    private Course course;
+//    private Instructor instructor;
+//    private List<Chapter> chapters;
+//    private List<Student> students;
 
 }

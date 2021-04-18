@@ -1,8 +1,10 @@
 package com.hbu.backend.model.utility;
 
+import com.hbu.backend.model.dto.AdminDTO;
 import com.hbu.backend.model.dto.course.CourseDTO;
 import com.hbu.backend.model.dto.InstructorDTO;
 import com.hbu.backend.model.dto.StudentDTO;
+import com.hbu.backend.model.entity.Admin;
 import com.hbu.backend.model.entity.course.Course;
 import com.hbu.backend.model.entity.Instructor;
 import com.hbu.backend.model.entity.Student;

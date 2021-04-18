@@ -19,6 +19,6 @@ public class Component {
     protected String title;
     @Nationalized
     protected String description;
-    @Nationalized
+    @Enumerated(EnumType.STRING)
     protected ComponentType componentType;
 }

@@ -1,18 +1,24 @@
 package com.hbu.backend.utility;
 
 import com.hbu.backend.model.dto.AdminDTO;
-import com.hbu.backend.model.dto.course.ComponentType;
-import com.hbu.backend.model.dto.course.CourseDTO;
-import com.hbu.backend.model.dto.course.ComponentDTO;
+import com.hbu.backend.model.dto.course.*;
 import com.hbu.backend.model.entity.Admin;
+import com.hbu.backend.model.entity.course.Chapter;
 import com.hbu.backend.model.entity.course.Component;
 import com.hbu.backend.model.entity.course.Course;
+import com.hbu.backend.model.entity.course.Section;
 import com.hbu.backend.model.entity.course.component.MultipleChoiceComponent;
 import com.hbu.backend.model.entity.course.component.FileComponent;
 import com.hbu.backend.model.entity.course.component.TextComponent;
+import com.hbu.backend.service.course.ComponentService;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 
+@Slf4j
 public class DtoUtility {
+    private static ComponentService componentService;
 
     public static CourseDTO toCourseDTO(Course course){
         CourseDTO courseDTO = new CourseDTO();
@@ -136,34 +142,66 @@ public class DtoUtility {
         component.setDescription(componentDTO.getDescription());
     }
 
+    /**
+     * Section Conversion
+     */
+    public static Section toSection(SectionDTO sectionDTO){
+        Section section = new Section();
+        section.setId(sectionDTO.getId());
+        section.setSectionType(sectionDTO.getSectionType());
+        section.setTitle(sectionDTO.getTitle());
+//        for(Long id : sectionDTO.getComponentIds()){
+//            log.info("Section DTO converter: " + id);
+//            Component foundComponent = componentService.findComponent(id);
+//            if(foundComponent == null){
+//                continue;
+//            }
+//            section.getComponents().add(foundComponent);
+//        }
+        return section;
+    }
 
+    public static  SectionDTO toSectionDTO(Section section){
+        SectionDTO sectionDTO = new SectionDTO();
+        sectionDTO.setId(section.getId());
+        sectionDTO.setTitle(section.getTitle());
+        sectionDTO.setSectionType(section.getSectionType());
 
-//    public static TextComponent toTextComponent(TextComponentDTO textComponentDTO){
-//        TextComponent textComponent = new TextComponent();
-//        textComponent.setId(textComponentDTO.getId());
-//        textComponent.setTitle(textComponentDTO.getTitle());
-//        textComponent.setDescription(textComponentDTO.getDescription());
-//        textComponent.setInputText(textComponentDTO.getInputText());
-//        textComponent.setComponentType(textComponentDTO.getComponentType());
-//        return textComponent;
-//    }
-//    public static TextComponentDTO toTextComponentDTO(TextComponent textComponent){
-//        TextComponentDTO textComponentDTO = new TextComponentDTO();
-//        textComponentDTO.setId(textComponent.getId());
-//        textComponentDTO.setDescription(textComponent.getDescription());
-//        textComponentDTO.setTitle(textComponent.getTitle());
-//        textComponentDTO.setInputText(textComponent.getInputText());
-//        textComponentDTO.setComponentType(textComponent.getComponentType());
-//        return textComponentDTO;
-//    }
+        sectionDTO.setComponentIds(new ArrayList<>());
+        for(Component component : section.getComponents()){
+            sectionDTO.getComponentIds().add(component.getId());
+        }
+        return sectionDTO;
+    }
 
-//    public static TextComponent toTextComponent(ComponentDTO componentDTO){
-//        TextComponent textComponent = new TextComponent();
-//        textComponent.setId(componentDTO.getId());
-//        textComponent.setTitle(componentDTO.getTitle());
-//        textComponent.setDescription(componentDTO.getDescription());
-//        textComponent.setInputText(componentDTO.getInputText());
-//        textComponent.setComponentType(componentDTO.getComponentType());
-//        return textComponent;
-//    }
+    /**
+     * Chapter Conversion
+     */
+    public static ChapterDTO toChapterDTO(Chapter chapter){
+        ChapterDTO chapterDTO = new ChapterDTO();
+        chapterDTO.setId(chapter.getId());
+
+        if(chapter.getSections() == null){
+            return chapterDTO;
+        }
+
+        chapterDTO.setSectionIds(new ArrayList<>());
+        for(Section section : chapter.getSections()){
+            chapterDTO.getSectionIds().add(section.getId());
+        }
+        return chapterDTO;
+    }
+
+    public static  Chapter toChapter(ChapterDTO chapterDTO){
+        Chapter chapter = new Chapter();
+        chapter.setId(chapterDTO.getId());
+
+//        chapterDTO.setSectionIds(new ArrayList<>());
+//        for(Section section : chapterDTO.getSectionIds()){
+//            chapterDTO.getSectionIds().add(section.getId());
+//        }
+
+        return chapter;
+    }
+
 }
