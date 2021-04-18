@@ -1,6 +1,6 @@
 package com.hbu.backend.model.dto;
 
-import com.hbu.backend.model.entity.course.Course;
+import com.hbu.backend.model.entity.Course;
 
 import java.util.List;
 
