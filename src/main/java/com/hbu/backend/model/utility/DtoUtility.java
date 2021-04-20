@@ -12,7 +12,7 @@ import com.hbu.backend.model.entity.Student;
 public class DtoUtility {
     public static CourseDTO toCourseDTO(Course course){
         CourseDTO courseDTO = new CourseDTO();
-        courseDTO.setCourseId(course.getCourseId());
+        courseDTO.setCourseId(course.getId());
         courseDTO.setTitle(course.getTitle());
         courseDTO.setClassSubject(course.getClassSubject());
         courseDTO.setCourseNumber(course.getCourseNumber());
@@ -24,7 +24,7 @@ public class DtoUtility {
 
     public static Course toCourseEntity(CourseDTO courseDTO){
         Course course = new Course();
-        course.setCourseId(courseDTO.getCourseId());
+        course.setId(courseDTO.getCourseId());
         course.setClassSubject(courseDTO.getClassSubject());
         course.setTitle(courseDTO.getTitle());
         course.setCourseNumber(courseDTO.getCourseNumber());
@@ -49,7 +49,7 @@ public class DtoUtility {
     }
 
     public static StudentDTO toStudentDTO(Student student) {
-        return new StudentDTO(student.getId(), student.getStudentId(), student.getFirstName(), student.getLastName(), student.getEmail(), student.getUsername(), student.getCourses());
+        return new StudentDTO(student.getId(), student.getStudentId(), student.getFirstName(), student.getLastName(), student.getEmail(), student.getUsername());
     }
 
     public static Student toStudent(StudentDTO studentDTO) {
@@ -60,7 +60,7 @@ public class DtoUtility {
         student.setLastName(studentDTO.getLastName());
         student.setEmail(studentDTO.getEmail());
         student.setUsername(studentDTO.getEmail());
-        student.setCourses(studentDTO.getCourses());
+//        student.setCourseModules(studentDTO.getCourseModuleIds());
         return student;
     }
 

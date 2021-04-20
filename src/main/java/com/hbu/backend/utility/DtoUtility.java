@@ -3,18 +3,19 @@ package com.hbu.backend.utility;
 import com.hbu.backend.model.dto.AdminDTO;
 import com.hbu.backend.model.dto.course.*;
 import com.hbu.backend.model.entity.Admin;
-import com.hbu.backend.model.entity.course.Chapter;
-import com.hbu.backend.model.entity.course.Component;
-import com.hbu.backend.model.entity.course.Course;
-import com.hbu.backend.model.entity.course.Section;
+import com.hbu.backend.model.entity.Student;
+import com.hbu.backend.model.entity.course.*;
 import com.hbu.backend.model.entity.course.component.MultipleChoiceComponent;
 import com.hbu.backend.model.entity.course.component.FileComponent;
 import com.hbu.backend.model.entity.course.component.TextComponent;
 import com.hbu.backend.service.course.ComponentService;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.graph.Graph;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @Slf4j
 public class DtoUtility {
@@ -22,7 +23,7 @@ public class DtoUtility {
 
     public static CourseDTO toCourseDTO(Course course){
         CourseDTO courseDTO = new CourseDTO();
-        courseDTO.setCourseId(course.getCourseId());
+        courseDTO.setCourseId(course.getId());
         courseDTO.setTitle(course.getTitle());
         courseDTO.setClassSubject(course.getClassSubject());
         courseDTO.setCourseNumber(course.getCourseNumber());
@@ -34,7 +35,7 @@ public class DtoUtility {
 
     public static Course toCourseEntity(CourseDTO courseDTO){
         Course course = new Course();
-        course.setCourseId(courseDTO.getCourseId());
+        course.setId(courseDTO.getCourseId());
         course.setClassSubject(courseDTO.getClassSubject());
         course.setTitle(courseDTO.getTitle());
         course.setCourseNumber(courseDTO.getCourseNumber());
@@ -200,8 +201,52 @@ public class DtoUtility {
 //        for(Section section : chapterDTO.getSectionIds()){
 //            chapterDTO.getSectionIds().add(section.getId());
 //        }
-
+        chapter.setSections(new ArrayList<>());
         return chapter;
     }
 
+    /**
+     * Class Module Conversion
+     */
+    public static CourseModuleDTO toCourseModuleDTO(CourseModule courseModule){
+        CourseModuleDTO courseModuleDTO = new CourseModuleDTO();
+        courseModuleDTO.setId(courseModule.getId());
+        courseModuleDTO.setCourseId(courseModule.getCourse().getId());
+        courseModuleDTO.setInstructorId(courseModule.getInstructor().getId());
+
+        if(courseModule.getChapters() != null){
+            courseModuleDTO.setChapterIds(new ArrayList<>());
+            for(Chapter chapter : courseModule.getChapters()){
+                log.info("DTO CONVERTION: toCourseModuleDTO-> " + chapter.getId().toString());
+                courseModuleDTO.getChapterIds().add(chapter);
+            }
+        }
+
+        courseModuleDTO.setStudentIds(new HashSet<>());
+        if(courseModule.getStudents() != null){
+            for(Student student : courseModule.getStudents()){
+                courseModuleDTO.getStudentIds().add(student.getId());
+            }
+        }
+
+        courseModuleDTO.setGradeIds(new HashSet<>());
+        if(courseModule.getGrades() != null){
+            for(Grade grade : courseModule.getGrades()){
+                courseModuleDTO.getGradeIds().add(grade);
+            }
+        }
+
+        return courseModuleDTO;
+    }
+
+    /**
+     * Grade Conversion
+     */
+    public static GradeDTO toGradeDTO(Grade grade){
+        GradeDTO gradeDTO = new GradeDTO();
+        gradeDTO.setId(grade.getId());
+        gradeDTO.setStudentId(String.valueOf(grade.getStudent().getId()));
+        gradeDTO.setGradeValue(grade.getGradeValue());
+        return gradeDTO;
+    }
 }

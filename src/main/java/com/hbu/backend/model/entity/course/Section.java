@@ -42,7 +42,7 @@ public class Section {
     public boolean updateComponent(Component component){
         int i = 0;
         for(; i < components.size(); i++){
-            if(components.get(i).getId() == component.getId()){
+            if(components.get(i).getId().equals(component.getId())){
                 break;
             }
         }

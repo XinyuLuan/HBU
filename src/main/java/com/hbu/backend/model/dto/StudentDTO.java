@@ -1,8 +1,10 @@
 package com.hbu.backend.model.dto;
 
 import com.hbu.backend.model.entity.course.Course;
+import com.hbu.backend.model.entity.course.CourseModule;
 
 import java.util.List;
+import java.util.Map;
 
 public class StudentDTO {
     // what about gpa info?
@@ -12,7 +14,7 @@ public class StudentDTO {
     private String lastName;
     private String email;
     private String username;
-    private List<Course> courses;
+    private List<Long> courseModuleIds;
     private String startTime;
     private String endTime;
     private boolean graduated;
@@ -21,37 +23,55 @@ public class StudentDTO {
     public StudentDTO() {
     }
 
-    public StudentDTO(String studentId, String firstName, String lastName, String email, String username, List<Course> courses) {
+    public StudentDTO(String studentId, String firstName, String lastName, String email, String username) {
         this.id = id;
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
-        this.courses = courses;
     }
 
-    public StudentDTO(String studentId, String firstName, String lastName, String email, String username, List<Course> courses, String startTime, String endTime, boolean graduated) {
+    public StudentDTO(String studentId, String firstName, String lastName, String email, String username,  List<Long> courseModuleIds) {
         this.id = id;
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
-        this.courses = courses;
+        this.courseModuleIds = courseModuleIds;
+    }
+
+    public StudentDTO(String studentId, String firstName, String lastName, String email, String username, List<Long> courseModuleIds, String startTime, String endTime, boolean graduated) {
+        this.id = id;
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.username = username;
+        this.courseModuleIds = courseModuleIds;
         this.startTime = startTime;
         this.endTime = endTime;
         this.graduated = graduated;
     }
 
-    public StudentDTO(long id, String studentId, String firstName, String lastName, String email, String username, List<Course> courses) {
+    public StudentDTO(long id, String studentId, String firstName, String lastName, String email, String username, List<Long> courseModuleIds) {
         this.id = id;
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
-        this.courses = courses;
+        this.courseModuleIds = courseModuleIds;
+    }
+
+    public StudentDTO(long id, String studentId, String firstName, String lastName, String email, String username) {
+        this.id = id;
+        this.studentId = studentId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.username = username;
     }
 
     public String getUsername() {
@@ -118,12 +138,20 @@ public class StudentDTO {
         this.lastName = lastName;
     }
 
-    public List<Course> getCourses() {
-        return courses;
+//    public List<Long> getCourseModuleIds() {
+//        return courseModuleIds;
+//    }
+//
+//    public void setCourseModuleIds(List<Long> courseModuleIds) {
+//        this.courseModuleIds = courseModuleIds;
+//    }
+
+    public List<Long> getCourseModuleIds() {
+        return courseModuleIds;
     }
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
+    public void setCourseModuleIds(List<Long> courseModuleIds) {
+        this.courseModuleIds = courseModuleIds;
     }
 
     public String getEmail() {

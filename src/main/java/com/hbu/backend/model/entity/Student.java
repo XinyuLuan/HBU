@@ -1,11 +1,13 @@
 package com.hbu.backend.model.entity;
 
 import com.hbu.backend.model.entity.course.Course;
+import com.hbu.backend.model.entity.course.CourseModule;
 import lombok.Data;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Map;
 
 @Data
 @Entity
@@ -13,7 +15,7 @@ import java.util.List;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="Id")
+//    @Column(name="Id")
     private Long id;
 
     @Nationalized
@@ -29,10 +31,19 @@ public class Student {
     @Nationalized
     private String password;
 
-    @OneToMany
-    private List<Course> courses;
+    @ManyToMany(cascade = CascadeType.ALL)
+    private List<CourseModule> courseModules;
 
-    public Student(String studentId, String firstName, String lastName, String email, String username, String password, List<Course> courses) {
+
+//    @JoinTable(name = "coursemodule_student_mapping",
+//            joinColumns = {@JoinColumn(name = "student_Id", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "coursemodule_id", referencedColumnName = "id")}
+//            )
+//    @MapKeyJoinColumn(name = "coursemodule_id")
+//    private Map<CourseModule, Double> courseModules;
+
+
+    public Student(String studentId, String firstName, String lastName, String email, String username, String password) {
         this.id = id;
         this.studentId = studentId;
         this.firstName = firstName;
@@ -40,7 +51,6 @@ public class Student {
         this.email = email;
         this.username = username;
         this.password = password;
-        this.courses = courses;
     }
 
     public Student() {
