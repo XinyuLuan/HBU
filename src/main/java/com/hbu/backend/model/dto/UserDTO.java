@@ -1,40 +1,37 @@
 package com.hbu.backend.model.dto;
 
-import com.hbu.backend.model.entity.Role;
 import com.hbu.backend.model.entity.course.Course;
 import com.hbu.backend.model.utility.RoleType;
 
 import java.util.List;
 
-/**
- * What inputs are we receiving as an instructor?
- *  inputs:
- *      grading course documents
- *      comments for student assignments
- *      creating files, modules, etc.
- *
- **/
-public class InstructorDTO {
+public class UserDTO {
     private long id;
+    private String studentUniversityId;
     private String firstName;
     private String lastName;
     private String email;
     private String username;
-    private List<Course> courses;
     private RoleType roleType;
+    private List<Course> courses;
 
-
-    public InstructorDTO(long id, String firstName, String lastName, String email, String username, List<Course> courses, RoleType roleType) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.username = username;
-        this.courses = courses;
-        this.roleType = roleType;
+    public UserDTO() {
     }
 
-    public InstructorDTO() {
+    public String getStudentUniversityId() {
+        return studentUniversityId;
+    }
+
+    public void setStudentUniversityId(String studentUniversityId) {
+        this.studentUniversityId = studentUniversityId;
+    }
+
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
     }
 
     public long getId() {
@@ -59,14 +56,6 @@ public class InstructorDTO {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public List<Course> getCourses() {
-        return courses;
-    }
-
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
     }
 
     public String getEmail() {

@@ -1,5 +1,6 @@
 package com.hbu.backend.model.entity;
 
+import com.hbu.backend.model.dto.UserDTO;
 import com.hbu.backend.model.entity.course.Course;
 import lombok.Data;
 
@@ -11,22 +12,7 @@ import java.util.List;
 @Data
 @Entity
 @Table(name="instructor")
-public class Instructor {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
-
-    @Nationalized
-    private String firstName;
-    @Nationalized
-    private String lastName;
-    @Nationalized
-    private String email;
-    @Nationalized
-    private String username;
-    @Nationalized
-    private String password;
-
+public class Instructor extends User {
     @OneToMany
     private List<Course> courses;
 }

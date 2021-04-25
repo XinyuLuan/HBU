@@ -1,57 +1,44 @@
 package com.hbu.backend.model.dto;
 
 import com.hbu.backend.model.entity.course.Course;
+import com.hbu.backend.model.utility.RoleType;
 
 import java.util.List;
 
 public class StudentDTO {
     // what about gpa info?
     private long id;
-    private String studentId;
+    private String studentUniversityId;
     private String firstName;
     private String lastName;
     private String email;
     private String username;
     private List<Course> courses;
+    private RoleType roleType;
     private String startTime;
     private String endTime;
     private boolean graduated;
 
-
-    public StudentDTO() {
-    }
-
-    public StudentDTO(String studentId, String firstName, String lastName, String email, String username, List<Course> courses) {
+    public StudentDTO(long id, String studentUniversityId, String firstName, String lastName, String email, String username, List<Course> courses, RoleType roleType) {
         this.id = id;
-        this.studentId = studentId;
+        this.studentUniversityId = studentUniversityId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.courses = courses;
-    }
-
-    public StudentDTO(String studentId, String firstName, String lastName, String email, String username, List<Course> courses, String startTime, String endTime, boolean graduated) {
-        this.id = id;
-        this.studentId = studentId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.username = username;
-        this.courses = courses;
+        this.roleType = roleType;
         this.startTime = startTime;
         this.endTime = endTime;
         this.graduated = graduated;
     }
 
-    public StudentDTO(long id, String studentId, String firstName, String lastName, String email, String username, List<Course> courses) {
-        this.id = id;
-        this.studentId = studentId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.username = username;
-        this.courses = courses;
+    public RoleType getRoleType() {
+        return roleType;
+    }
+
+    public void setRoleType(RoleType roleType) {
+        this.roleType = roleType;
     }
 
     public String getUsername() {
@@ -62,12 +49,12 @@ public class StudentDTO {
         this.username = username;
     }
 
-    public String getStudentId() {
-        return studentId;
+    public String getStudentUniversityId() {
+        return studentUniversityId;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public void setStudentUniversityId(String studentUniversityId) {
+        this.studentUniversityId = studentUniversityId;
     }
 
     public String getStartTime() {

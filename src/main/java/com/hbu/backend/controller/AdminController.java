@@ -6,7 +6,7 @@ import com.hbu.backend.model.dto.InstructorDTO;
 import com.hbu.backend.model.dto.StudentDTO;
 import com.hbu.backend.model.entity.Admin;
 import com.hbu.backend.service.AdminService;
-import com.hbu.backend.utility.DtoUtility;
+import com.hbu.backend.model.utility.DtoUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +39,7 @@ public class AdminController {
         Admin admin = adminService.findAdmin(adminId);
 
         if(admin == null){
-            return new ResponseEntity(_ErrorAdmin + adminId + "NOT EXIST", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(_ErrorAdmin + adminId + " DOES NOT EXIST", HttpStatus.BAD_REQUEST);
         }
 
         return new ResponseEntity<AdminDTO>(DtoUtility.toAdminDTO(admin), HttpStatus.OK);
@@ -62,7 +62,7 @@ public class AdminController {
         Admin admin = adminService.updateAdmin(DtoUtility.toAdmin(adminDTO), id);
 
         if(admin == null){
-            return new ResponseEntity(_ErrorAdmin + id + " NOT EXIST", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(_ErrorAdmin + id + " DOES NOT EXIST", HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<AdminDTO>(DtoUtility.toAdminDTO(admin), HttpStatus.OK);
     }
@@ -72,7 +72,7 @@ public class AdminController {
         Admin admin = adminService.findAdmin(id);
 
         if(admin == null){
-            return new ResponseEntity(_ErrorAdmin + id + " NOT EXIST", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity(_ErrorAdmin + id + " DOES NOT EXIST", HttpStatus.BAD_REQUEST);
         }
 
         adminService.deleteAdmin(admin);

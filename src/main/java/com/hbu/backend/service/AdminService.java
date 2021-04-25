@@ -45,6 +45,11 @@ public class AdminService {
 
         foundAdmin.setFirstName(admin.getFirstName());
         foundAdmin.setLastName(admin.getLastName());
+        foundAdmin.setEmail(admin.getEmail());
+        foundAdmin.setUsername(admin.getUsername());
+        foundAdmin.setPassword(admin.getPassword());
+        foundAdmin.setRoleType(admin.getRoleType());
+
         return adminRepository.save(foundAdmin);
     }
 

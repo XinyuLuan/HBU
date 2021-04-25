@@ -56,6 +56,12 @@ public class InstructorService {
 
         foundInstructor.setFirstName(instructor.getFirstName());
         foundInstructor.setLastName(instructor.getLastName());
+        foundInstructor.setEmail(instructor.getEmail());
+        foundInstructor.setUsername(instructor.getUsername());
+        foundInstructor.setPassword(instructor.getPassword());
+        foundInstructor.setRoleType(instructor.getRoleType());
+        foundInstructor.setCourses(instructor.getCourses());
+
         return instructorRepository.save(foundInstructor);
     }
 }

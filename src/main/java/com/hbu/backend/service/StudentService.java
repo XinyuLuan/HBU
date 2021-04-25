@@ -55,10 +55,15 @@ public class StudentService {
             return null;
         }
 
-        foundStudent.setStudentId(student.getStudentId());
+        foundStudent.setStudentUniversityId(student.getStudentUniversityId());
         foundStudent.setFirstName(student.getFirstName());
         foundStudent.setLastName(student.getLastName());
-        // needs email, username, and password
+        foundStudent.setEmail(student.getEmail());
+        foundStudent.setUsername(student.getUsername());
+        foundStudent.setPassword(student.getPassword());
+        foundStudent.setRoleType(student.getRoleType());
+        foundStudent.setCourses(student.getCourses());
+
         return studentRepository.save(foundStudent);
     }
 

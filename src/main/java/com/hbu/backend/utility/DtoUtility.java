@@ -47,11 +47,11 @@ public class DtoUtility {
         AdminDTO adminDTO = new AdminDTO();
         adminDTO.setFirstName(admin.getFirstName());
         adminDTO.setLastName(admin.getLastName());
-        adminDTO.setAdminId(admin.getAdminId());
+        adminDTO.setId(admin.getId());
         return adminDTO;
     }
 
-    public static  Admin toAdmin(AdminDTO adminDTO){
+    public static Admin toAdmin(AdminDTO adminDTO){
         Admin admin = new Admin();
         admin.setFirstName(adminDTO.getFirstName());
         admin.setLastName(adminDTO.getLastName());
