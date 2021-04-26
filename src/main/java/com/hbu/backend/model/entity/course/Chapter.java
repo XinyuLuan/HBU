@@ -22,7 +22,7 @@ public class Chapter {
     public boolean updateSection(Section section){
         int i = 0;
         for(; i < sections.size(); i++){
-            if(sections.get(i).getId() == section.getId()){
+            if(sections.get(i).getId().equals(section.getId())){
                 break;
             }
         }

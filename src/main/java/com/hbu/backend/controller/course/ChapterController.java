@@ -3,16 +3,13 @@ package com.hbu.backend.controller.course;
 import com.hbu.backend.model.dto.course.ChapterDTO;
 import com.hbu.backend.model.dto.course.SectionDTO;
 import com.hbu.backend.model.entity.course.Chapter;
-import com.hbu.backend.model.entity.course.Component;
 import com.hbu.backend.model.entity.course.Section;
+import com.hbu.backend.model.utility.DtoUtility;
 import com.hbu.backend.service.course.ChapterService;
 import com.hbu.backend.service.course.SectionService;
-import com.hbu.backend.utility.DtoUtility;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.amqp.AbstractRabbitListenerContainerFactoryConfigurer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

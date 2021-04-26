@@ -1,9 +1,12 @@
 package com.hbu.backend.model.dto.course;
 
+import com.hbu.backend.model.entity.course.Course;
+import com.hbu.backend.model.entity.course.CourseModule;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 // reference: https://lucid.app/lucidchart/a896735c-2466-4dcd-8d67-2851ce3d98b0/edit?beaconFlowId=6357EB40A9CF55A9&page=0_0#?folder_id=home&browser=icon
 @ToString(includeFieldNames = true)
@@ -15,11 +18,29 @@ public class CourseDTO {
 //    private Long InstructorId;
     private String courseNumber;
     private String description;
+    private List<Long> courseModuleIds;
 
 ////    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 //    private LocalDateTime startTime;
 ////    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
 //
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Long> getCourseModuleIds() {
+        return courseModuleIds;
+    }
+
+    public void setCourseModuleIds(List<Long> courseModuleIds) {
+        this.courseModuleIds = courseModuleIds;
+    }
+
 //    private LocalDateTime endTime;
 
     public Long getCourseId() {

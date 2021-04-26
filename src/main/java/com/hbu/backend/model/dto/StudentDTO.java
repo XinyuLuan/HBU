@@ -1,6 +1,5 @@
 package com.hbu.backend.model.dto;
 
-import com.hbu.backend.model.entity.course.Course;
 import com.hbu.backend.model.utility.RoleType;
 
 import java.util.List;
@@ -13,25 +12,16 @@ public class StudentDTO {
     private String lastName;
     private String email;
     private String username;
-    private List<Course> courses;
     private RoleType roleType;
+
+    private List<Long> courseModuleIds;
     private String startTime;
     private String endTime;
     private boolean graduated;
 
-    public StudentDTO(long id, String studentUniversityId, String firstName, String lastName, String email, String username, List<Course> courses, RoleType roleType) {
-        this.id = id;
-        this.studentUniversityId = studentUniversityId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.username = username;
-        this.courses = courses;
-        this.roleType = roleType;
-        this.startTime = startTime;
-        this.endTime = endTime;
-        this.graduated = graduated;
+    public StudentDTO() {
     }
+
 
     public RoleType getRoleType() {
         return roleType;
@@ -105,12 +95,12 @@ public class StudentDTO {
         this.lastName = lastName;
     }
 
-    public List<Course> getCourses() {
-        return courses;
+    public List<Long> getCourseModuleIds() {
+        return courseModuleIds;
     }
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
+    public void setCourseModuleIds(List<Long> courseModuleIds) {
+        this.courseModuleIds = courseModuleIds;
     }
 
     public String getEmail() {

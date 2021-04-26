@@ -60,7 +60,7 @@ public class InstructorService {
         foundInstructor.setUsername(instructor.getUsername());
         foundInstructor.setPassword(instructor.getPassword());
         foundInstructor.setRoleType(instructor.getRoleType());
-        foundInstructor.setCourses(instructor.getCourses());
+        foundInstructor.setCourseModules(instructor.getCourseModules());
 
         return instructorRepository.save(foundInstructor);
     }

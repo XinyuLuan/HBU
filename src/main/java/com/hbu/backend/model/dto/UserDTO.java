@@ -13,7 +13,7 @@ public class UserDTO {
     private String email;
     private String username;
     private RoleType roleType;
-    private List<Course> courses;
+    private List<Long> courseModuleIds;
 
     public UserDTO() {
     }
@@ -26,12 +26,12 @@ public class UserDTO {
         this.studentUniversityId = studentUniversityId;
     }
 
-    public List<Course> getCourses() {
-        return courses;
+    public List<Long> getCourseModuleIds() {
+        return courseModuleIds;
     }
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
+    public void setCourseModuleIds(List<Long> courseModuleIds) {
+        this.courseModuleIds = courseModuleIds;
     }
 
     public long getId() {

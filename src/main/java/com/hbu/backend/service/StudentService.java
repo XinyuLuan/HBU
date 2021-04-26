@@ -62,7 +62,7 @@ public class StudentService {
         foundStudent.setUsername(student.getUsername());
         foundStudent.setPassword(student.getPassword());
         foundStudent.setRoleType(student.getRoleType());
-        foundStudent.setCourses(student.getCourses());
+        foundStudent.setCourseModules(student.getCourseModules());
 
         return studentRepository.save(foundStudent);
     }

@@ -2,8 +2,8 @@ package com.hbu.backend.controller.course;
 
 import com.hbu.backend.model.dto.course.CourseDTO;
 import com.hbu.backend.model.entity.course.Course;
+import com.hbu.backend.model.utility.DtoUtility;
 import com.hbu.backend.service.course.CourseService;
-import com.hbu.backend.utility.DtoUtility;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
