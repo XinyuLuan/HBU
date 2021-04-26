@@ -16,19 +16,21 @@ public class CourseModule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(targetEntity = Course.class)
+    @ManyToOne(targetEntity = Course.class)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "course_id")
     private Course course;
 
-    @OneToOne(targetEntity = Instructor.class)
+    @ManyToOne(targetEntity = Instructor.class)
     private Instructor instructor;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Chapter> chapters;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     private Set<Student> students;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Grade> grades;
 
     public boolean addChapter(Chapter chapter){

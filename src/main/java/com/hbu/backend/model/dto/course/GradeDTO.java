@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class GradeDTO {
     private Long id;
-    private String studentId;
+    private Long studentId;
+    private Long courseModuleId;
     private Double gradeValue;
 }

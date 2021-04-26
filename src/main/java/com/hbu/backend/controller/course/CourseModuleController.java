@@ -60,39 +60,13 @@ public class CourseModuleController {
         CourseModule courseModule = new CourseModule();
         courseModule.setInstructor(instructorService.findInstructor(courseModuleDTO.getInstructorId()));
         courseModule.setCourse(courseService.findCourse(courseModuleDTO.getCourseId()));
+        Course course = courseService.findCourse(courseModule.getCourse().getId());
 
         courseModule.setChapters(new ArrayList<>());
-//        if(courseModuleDTO.getChapterIds() != null){
-//            for(Long chapterId : courseModuleDTO.getChapterIds()){
-//                Chapter chapter = chapterService.findChapter(chapterId);
-//                if(chapter == null){
-//                    continue;
-//                }
-//                courseModule.getChapters().add(chapter);
-//            }
-//        }
-//
         courseModule.setStudents(new HashSet<>());
-//        if(courseModuleDTO.getStudentIds() == null){
-//            for(Long studentId : courseModuleDTO.getStudentIds()){
-//                Student student = studentService.findStudent(studentId);
-//                if(student == null){
-//                    continue;
-//                }
-//                courseModule.getStudents().add(student);
-//            }
-//        }
-//
         courseModule.setGrades(new HashSet<>());
-//        if(courseModuleDTO.getGradeIds() == null){
-//            for(Long gradeId : courseModuleDTO.getGradeIds()){
-//                Grade grade = gradeService.findGrade(gradeId);
-//                if(grade == null){
-//                    continue;
-//                }
-//                courseModule.getGrades().add(grade);
-//            }
-//        }
+
+        course.addCourseModule(courseModule);
 
         return new ResponseEntity<CourseModuleDTO>(DtoUtility.toCourseModuleDTO(courseModuleService.saveCourseModule(courseModule)), HttpStatus.OK);
     }
@@ -159,7 +133,14 @@ public class CourseModuleController {
             return new ResponseEntity("CourseModel " + id + " NOT EXIST", HttpStatus.BAD_REQUEST);
         }
 
+        Course course = courseModule.getCourse();
+        course.deleteCourseModule(courseModule);
+
+        courseService.saveCourse(course);
+
         // Clear all of the foreign key in course module
+        courseModule.setInstructor(new Instructor());
+        courseModule.setCourse(new Course());
         courseModule.setStudents(new HashSet<>());
         courseModule.setChapters(new ArrayList<>());
         courseModule.setGrades(new HashSet<>());
@@ -247,6 +228,7 @@ public class CourseModuleController {
         Grade grade = new Grade();
         grade.setStudent(student);
         grade.setGradeValue(0.0);
+        grade.setCourseModule(courseModule);
         grade = gradeService.saveGrade(grade);
         courseModule.addGrade(grade);
 
@@ -279,14 +261,14 @@ public class CourseModuleController {
             return new ResponseEntity("CourseModel " + courseModuleId + " NOT EXIST", HttpStatus.BAD_REQUEST);
         }
 
-        Student student = studentService.findStudent(Long.parseLong(gradeDTO.getStudentId()));
+        Student student = studentService.findStudent(gradeDTO.getStudentId());
         if(student == null){
             return new ResponseEntity("Student " + gradeDTO.getStudentId() + " NOT EXIST", HttpStatus.BAD_REQUEST);
         }
 
         Grade foundGrade = null;
         for(Grade grade : courseModule.getGrades()){
-            if(grade.getStudent().getId().equals(Long.parseLong(gradeDTO.getStudentId()))){
+            if(grade.getStudent().getId().equals(gradeDTO.getStudentId())){
                 foundGrade = grade;
             }
         }

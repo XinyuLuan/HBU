@@ -55,6 +55,38 @@ public class Student {
 
     public Student() {
     }
+
+    public boolean addCourseModule(CourseModule courseModule){
+        return courseModules.add(courseModule);
+    }
+
+    public int findCourseModule(Long id){
+        int i = 0;
+        for(; i < courseModules.size(); i++){
+            if(courseModules.get(i).getId().equals(id)){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean deleteCourseModule(CourseModule courseModule){
+        int found = findCourseModule(courseModule.getId());
+        if(found == -1){
+            return false;
+        }
+        courseModules.remove(found);
+        return true;
+    }
+
+    public boolean updateCourseModule(CourseModule courseModule){
+        int found = findCourseModule(courseModule.getId());
+        if(found == -1){
+            return false;
+        }
+        courseModules.set(found, courseModule);
+        return true;
+    }
 //
 //    public Long getId() {
 //        return id;

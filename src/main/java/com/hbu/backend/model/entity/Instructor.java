@@ -1,6 +1,7 @@
 package com.hbu.backend.model.entity;
 
 import com.hbu.backend.model.entity.course.Course;
+import com.hbu.backend.model.entity.course.CourseModule;
 import lombok.Data;
 
 import org.hibernate.annotations.Nationalized;
@@ -14,7 +15,8 @@ import java.util.List;
 public class Instructor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+//    private Long Id; with error-> ** Unable to locate Attribute  with the the given name [id] on this ManagedType [com.hbu.backend.model.entity.Instructor] **
+    private Long id;
 
     @Nationalized
     private String firstName;
@@ -28,5 +30,5 @@ public class Instructor {
     private String password;
 
     @OneToMany
-    private List<Course> courses;
+    private List<CourseModule> courseModules;
 }

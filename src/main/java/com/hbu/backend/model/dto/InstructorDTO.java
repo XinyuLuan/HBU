@@ -1,6 +1,7 @@
 package com.hbu.backend.model.dto;
 
 import com.hbu.backend.model.entity.course.Course;
+import com.hbu.backend.model.entity.course.CourseModule;
 
 import java.util.List;
 
@@ -18,15 +19,15 @@ public class InstructorDTO {
     private String lastName;
     private String email;
     private String username;
-    private List<Course> courses;
+    private List<CourseModule> courseModules;
 
-    public InstructorDTO(long id, String firstName, String lastName, String email, String username, List<Course> courses) {
+    public InstructorDTO(long id, String firstName, String lastName, String email, String username, List<CourseModule> courseNodules) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
-        this.courses = courses;
+        this.courseModules = courseNodules;
     }
 
     public InstructorDTO() {
@@ -56,13 +57,21 @@ public class InstructorDTO {
         this.lastName = lastName;
     }
 
-    public List<Course> getCourses() {
-        return courses;
+//    public List<Course> getCourses() {
+//        return courses;
+//    }
+
+//    public void setCourses(List<Course> courses) {
+//        this.courses = courses;
+
+    public List<CourseModule> getCourseModules() {
+        return courseModules;
     }
 
-    public void setCourses(List<Course> courses) {
-        this.courses = courses;
+    public void setCourseModules(List<CourseModule> courseModules) {
+        this.courseModules = courseModules;
     }
+//    }
 
     public String getEmail() {
         return email;

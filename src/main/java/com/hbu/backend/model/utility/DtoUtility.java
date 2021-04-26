@@ -8,6 +8,10 @@ import com.hbu.backend.model.entity.Admin;
 import com.hbu.backend.model.entity.course.Course;
 import com.hbu.backend.model.entity.Instructor;
 import com.hbu.backend.model.entity.Student;
+import com.hbu.backend.model.entity.course.CourseModule;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DtoUtility {
     public static CourseDTO toCourseDTO(Course course){
@@ -49,7 +53,17 @@ public class DtoUtility {
     }
 
     public static StudentDTO toStudentDTO(Student student) {
-        return new StudentDTO(student.getId(), student.getStudentId(), student.getFirstName(), student.getLastName(), student.getEmail(), student.getUsername());
+        StudentDTO studentDTO = new StudentDTO(student.getId(), student.getStudentId(), student.getFirstName(), student.getLastName(), student.getEmail(), student.getUsername());
+
+        List<Long> courseModuleIds = new ArrayList<>();
+        if(student.getCourseModules() != null){
+            for(CourseModule courseModule : student.getCourseModules()){
+                courseModuleIds.add(courseModule.getId());
+            }
+            studentDTO.setCourseModuleIds(courseModuleIds);
+        }
+
+        return studentDTO;
     }
 
     public static Student toStudent(StudentDTO studentDTO) {
@@ -65,7 +79,7 @@ public class DtoUtility {
     }
 
     public static InstructorDTO toInstructorDTO(Instructor instructor) {
-        return new InstructorDTO(instructor.getId(), instructor.getFirstName(), instructor.getLastName(), instructor.getEmail(), instructor.getUsername(), instructor.getCourses());
+        return new InstructorDTO(instructor.getId(), instructor.getFirstName(), instructor.getLastName(), instructor.getEmail(), instructor.getUsername(), instructor.getCourseModules());
     }
 
     public static Instructor toInstructor(InstructorDTO instructorDTO) {
@@ -75,7 +89,8 @@ public class DtoUtility {
         instructor.setLastName(instructorDTO.getLastName());
         instructor.setEmail(instructorDTO.getEmail());
         instructor.setUsername(instructorDTO.getUsername());
-        instructor.setCourses(instructorDTO.getCourses());
+//        instructor.setCourses(instructorDTO.getCourses());
+        instructor.setCourseModules(instructorDTO.getCourseModules());
         return instructor;
     }
 }

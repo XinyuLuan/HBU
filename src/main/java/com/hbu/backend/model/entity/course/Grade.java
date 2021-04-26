@@ -12,8 +12,8 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-//    @OneToOne(targetEntity = CourseModule.class)
-//    private CourseModule courseModule;
+    @ManyToOne(targetEntity = CourseModule.class)
+    private CourseModule courseModule;
 
     @OneToOne(targetEntity = Student.class)
     private Student student;

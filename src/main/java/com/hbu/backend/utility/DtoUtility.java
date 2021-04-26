@@ -30,6 +30,11 @@ public class DtoUtility {
 //        courseDTO.setInstructorId(course.getInstructor().getId());
 //        courseDTO.setStartTime(course.getStartTime());
 //        courseDTO.setEndTime(course.getEndTime());
+        courseDTO.setCourseModuleIds(new ArrayList<>());
+        for(CourseModule courseModule : course.getCourseModules()){
+            courseDTO.getCourseModuleIds().add(courseModule.getId());
+        }
+
         return courseDTO;
     }
 
@@ -218,7 +223,7 @@ public class DtoUtility {
             courseModuleDTO.setChapterIds(new ArrayList<>());
             for(Chapter chapter : courseModule.getChapters()){
                 log.info("DTO CONVERTION: toCourseModuleDTO-> " + chapter.getId().toString());
-                courseModuleDTO.getChapterIds().add(chapter);
+                courseModuleDTO.getChapterIds().add(chapter.getId());
             }
         }
 
@@ -232,7 +237,7 @@ public class DtoUtility {
         courseModuleDTO.setGradeIds(new HashSet<>());
         if(courseModule.getGrades() != null){
             for(Grade grade : courseModule.getGrades()){
-                courseModuleDTO.getGradeIds().add(grade);
+                courseModuleDTO.getGradeIds().add(grade.getId());
             }
         }
 
@@ -245,7 +250,10 @@ public class DtoUtility {
     public static GradeDTO toGradeDTO(Grade grade){
         GradeDTO gradeDTO = new GradeDTO();
         gradeDTO.setId(grade.getId());
-        gradeDTO.setStudentId(String.valueOf(grade.getStudent().getId()));
+        gradeDTO.setStudentId(grade.getStudent().getId());
+        if(grade.getCourseModule() != null){
+            gradeDTO.setCourseModuleId(grade.getCourseModule().getId());
+        }
         gradeDTO.setGradeValue(grade.getGradeValue());
         return gradeDTO;
     }

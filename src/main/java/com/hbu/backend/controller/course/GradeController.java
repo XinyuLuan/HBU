@@ -25,7 +25,7 @@ public class GradeController {
         Grade grade = new Grade();
 
         grade.setGradeValue(gradeDTO.getGradeValue());
-        grade.setStudent(studentService.findStudent(Long.parseLong(gradeDTO.getStudentId())));
+        grade.setStudent(studentService.findStudent(gradeDTO.getStudentId()));
 
         return new ResponseEntity<GradeDTO>(DtoUtility.toGradeDTO(gradeService.saveGrade(grade)), HttpStatus.OK);
     }

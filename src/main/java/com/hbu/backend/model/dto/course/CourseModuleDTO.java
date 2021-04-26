@@ -14,7 +14,7 @@ public class CourseModuleDTO {
     private Long id;
     private Long courseId;
     private Long instructorId;
-    private List<Chapter> chapterIds;
+    private List<Long> chapterIds;
     private Set<Long> studentIds;
-    private Set<Grade> gradeIds;
+    private Set<Long> gradeIds;
 }

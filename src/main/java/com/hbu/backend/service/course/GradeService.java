@@ -50,4 +50,8 @@ public class GradeService {
         return true;
     }
 
+    public List<Grade> findGradesByStudentId(Long studentId){
+        return gradeRepository.findGradesByStudentId(studentId);
+    }
+
 }

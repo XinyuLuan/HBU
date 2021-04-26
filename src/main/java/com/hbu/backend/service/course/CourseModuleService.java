@@ -1,11 +1,9 @@
 package com.hbu.backend.service.course;
 
-import com.hbu.backend.model.dto.course.CourseModuleDTO;
-import com.hbu.backend.model.entity.course.Course;
 import com.hbu.backend.model.entity.course.CourseModule;
 import com.hbu.backend.repository.course.CourseModuleRepository;
-import com.hbu.backend.repository.course.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -58,4 +56,9 @@ public class CourseModuleService {
 
         courseModuleRepository.delete(foundCourseModule);
     }
+
+    public List<CourseModule> findCourseModulesByInstructorId(Long instructorId){
+        return courseModuleRepository.findCourseModulesByInstructorId(instructorId);
+    }
+
 }
