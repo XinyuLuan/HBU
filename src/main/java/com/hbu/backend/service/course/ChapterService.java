@@ -1,7 +1,9 @@
 package com.hbu.backend.service.course;
 
 import com.hbu.backend.model.entity.course.Chapter;
+import com.hbu.backend.model.entity.course.CourseModule;
 import com.hbu.backend.repository.course.ChapterRepository;
+import com.hbu.backend.repository.course.CourseModuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,8 @@ public class ChapterService {
 
     @Autowired
     ChapterRepository chapterRepository;
+    @Autowired
+    CourseModuleRepository courseModuleRepository;
 
     public Chapter saveChapter(Chapter chapter){
         return chapterRepository.save(chapter);
@@ -43,6 +47,8 @@ public class ChapterService {
             return;
         }
 
+        CourseModule courseModule = chapter.getCourseModule();
+        courseModule.getChapters().remove(chapter);
         chapterRepository.delete(chapter);
     }
 }

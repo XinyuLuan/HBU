@@ -15,6 +15,10 @@ public class Chapter {
     @OneToMany(cascade = CascadeType.ALL)
     private List<Section> sections;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "courseModule_id")
+    private CourseModule courseModule;
+
     public boolean addSection(Section section){
         return sections.add(section);
     }

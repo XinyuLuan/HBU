@@ -24,14 +24,8 @@ public class Course {
     @Nationalized
     private String courseNumber;
 
-    @OneToMany(targetEntity = CourseModule.class, cascade = CascadeType.ALL)
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.REMOVE)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "course", cascade = CascadeType.ALL)
     List<CourseModule> courseModules;
-//    @ManyToOne
-//    private Instructor instructor;
-//
-//    private LocalDateTime startTime;
-//    private LocalDateTime endTime;
 
     public boolean addCourseModule(CourseModule courseModule){
         return courseModules.add(courseModule);

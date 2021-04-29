@@ -3,9 +3,11 @@ package com.hbu.backend.controller.course;
 import com.hbu.backend.model.dto.course.ChapterDTO;
 import com.hbu.backend.model.dto.course.SectionDTO;
 import com.hbu.backend.model.entity.course.Chapter;
+import com.hbu.backend.model.entity.course.CourseModule;
 import com.hbu.backend.model.entity.course.Section;
 import com.hbu.backend.model.utility.DtoUtility;
 import com.hbu.backend.service.course.ChapterService;
+import com.hbu.backend.service.course.CourseModuleService;
 import com.hbu.backend.service.course.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,6 +22,8 @@ import java.util.List;
 public class ChapterController {
 
     @Autowired
+    CourseModuleService courseModuleService;
+    @Autowired
     ChapterService chapterService;
     @Autowired
     SectionService sectionService;
@@ -30,10 +34,22 @@ public class ChapterController {
      * @return
      */
     @PostMapping("/add")
-    public ResponseEntity<ChapterDTO> saveChapter(ChapterDTO chapterDTO){
+    public ResponseEntity<ChapterDTO> saveChapter(@RequestBody ChapterDTO chapterDTO){
         Chapter chapter = DtoUtility.toChapter(chapterDTO);
         chapter.setSections(new ArrayList<>());
-        return new ResponseEntity<ChapterDTO>(DtoUtility.toChapterDTO(chapterService.saveChapter(chapter)), HttpStatus.OK);
+
+        CourseModule courseModule = courseModuleService.findCourseModule(chapterDTO.getCourseModuleId());
+        if(courseModule == null){
+            return new ResponseEntity("Course Module " + chapterDTO.getCourseModuleId() + " NOT EXIST", HttpStatus.BAD_REQUEST);
+        }
+
+        chapter.setCourseModule(courseModule);
+        chapter = chapterService.saveChapter(chapter);
+
+        courseModule.addChapter(chapter);
+        courseModuleService.updateCourseModule(courseModule, courseModule.getId());
+
+        return new ResponseEntity<ChapterDTO>(DtoUtility.toChapterDTO(chapter), HttpStatus.OK);
     }
 
 

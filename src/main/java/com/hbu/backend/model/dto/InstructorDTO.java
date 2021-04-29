@@ -20,18 +20,8 @@ public class InstructorDTO {
     private String email;
     private String username;
     private RoleType roleType;
-    private List<CourseModule> courseModules;
+    private List<Long> courseModules;
 
-
-    public InstructorDTO(long id, String firstName, String lastName, String email, String username, List<CourseModule> courseNodules) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.username = username;
-        this.roleType = roleType;
-        this.courseModules = courseNodules;
-    }
 
     public InstructorDTO() {
     }
@@ -67,14 +57,14 @@ public class InstructorDTO {
 //    public void setCourses(List<Course> courses) {
 //        this.courses = courses;
 
-    public List<CourseModule> getCourseModules() {
+
+    public List<Long> getCourseModules() {
         return courseModules;
     }
 
-    public void setCourseModules(List<CourseModule> courseModules) {
+    public void setCourseModules(List<Long> courseModules) {
         this.courseModules = courseModules;
     }
-//    }
 
     public String getEmail() {
         return email;

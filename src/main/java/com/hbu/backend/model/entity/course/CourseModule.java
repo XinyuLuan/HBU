@@ -5,6 +5,7 @@ import com.hbu.backend.model.entity.Student;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -16,21 +17,28 @@ public class CourseModule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(targetEntity = Course.class)
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "course_id")
+//    @ManyToOne(targetEntity = Course.class)
+    @JoinColumn(name = "course_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Course course;
 
-    @ManyToOne(targetEntity = Instructor.class, cascade = CascadeType.ALL)
+//    @ManyToOne(targetEntity = Instructor.class)
+    @JoinColumn(name = "instructor_id")
+    @ManyToOne(fetch = FetchType.LAZY)
     private Instructor instructor;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "courseModule", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Chapter> chapters;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },
+            mappedBy = "courseModules")
     private Set<Student> students;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "courseModule")
     private Set<Grade> grades;
 
     public boolean addChapter(Chapter chapter){
@@ -55,6 +63,14 @@ public class CourseModule {
         return chapters.remove(chapter);
     }
 
+    public Student findStudent(Long studentId){
+        for(Student s : students){
+            if(s.getId().equals(studentId)){
+                return s;
+            }
+        }
+        return null;
+    }
     public boolean addStudent(Student student){
         return students.add(student);
     }
@@ -72,6 +88,15 @@ public class CourseModule {
 
     public boolean deleteStudent(Student student){
         return students.remove(student);
+    }
+
+    public Grade findGrade(Long studentId){
+        for(Grade g : grades){
+            if(g.getStudent().getId().equals(studentId)){
+                return g;
+            }
+        }
+        return null;
     }
 
     public boolean addGrade(Grade grade){

@@ -5,6 +5,8 @@ import com.hbu.backend.repository.course.CourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service
@@ -56,6 +58,9 @@ public class CourseService {
      */
     public void deleteCourse(Course course){
         if(course != null){
+//            course.getCourseModules().clear();
+//            entityManager.merge(course);
+//            entityManager.remove(course);
             courseRepository.delete(course);
         }
     }

@@ -3,6 +3,7 @@ package com.hbu.backend.model.entity;
 import com.hbu.backend.model.dto.UserDTO;
 import com.hbu.backend.model.entity.course.Course;
 import com.hbu.backend.model.entity.course.CourseModule;
+import com.hbu.backend.model.entity.course.Grade;
 import lombok.Data;
 import org.hibernate.annotations.Nationalized;
 
@@ -19,10 +20,20 @@ public class Student extends User {
     @Nationalized
     private String studentUniversityId;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "student")
+    @ManyToMany(fetch = FetchType.LAZY,
+        cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+        })
+    @JoinTable(name = "student_course_module",
+            joinColumns = { @JoinColumn(name = "student_id") },
+            inverseJoinColumns = { @JoinColumn(name = "courseModule_id") })
     private List<CourseModule> courseModules;
 
     // Add List Grade
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    List<Grade> grades;
 
 //    @JoinTable(name = "coursemodule_student_mapping",
 //            joinColumns = {@JoinColumn(name = "student_Id", referencedColumnName = "id")},

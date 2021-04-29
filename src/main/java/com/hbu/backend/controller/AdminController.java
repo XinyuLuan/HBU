@@ -150,11 +150,31 @@ public class AdminController {
     @DeleteMapping("/student/{id}")
     public ResponseEntity<Long> deleteStudent(@PathVariable Long id) {
         Student student = studentService.findStudent(id);
-
         if(student == null){
-            return new ResponseEntity("Student " + id + " DOES NOT EXIST", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity("Student " + id + " NOT EXIST", HttpStatus.BAD_REQUEST);
         }
 
+
+        List<CourseModule> courseModules = student.getCourseModules();
+        for(CourseModule courseModule : courseModules){
+            courseModule.deleteStudent(student);
+            courseModule.deleteGrade(student);
+            Grade grade = courseModule.findGrade(student.getId());
+            if(grade != null){
+                courseModule.deleteGrade(student);
+//                gradeService.deleteGrade(grade.getId());
+            }
+            courseModuleService.saveCourseModule(courseModule);
+        }
+
+        student.getCourseModules().clear();
+//        return new ResponseEntity<CourseModuleDTO>(DtoUtility.toCourseModuleDTO(courseModuleService.saveCourseModule(courseModule)), HttpStatus.OK);
+//        Student student = studentService.findStudent(id);
+//
+//        if(student == null){
+//            return new ResponseEntity("Student " + id + " DOES NOT EXIST", HttpStatus.BAD_REQUEST);
+//        }
+//
         studentService.deleteStudent(student);
         return new ResponseEntity("Deleted Student " + id, HttpStatus.OK);
     }
@@ -290,7 +310,16 @@ public class AdminController {
         }
 
 //        instructor.setCourses(instructorDTO.getCourses());
-        instructor.setCourseModules(instructorDTO.getCourseModules());
+        instructor.getCourseModules().clear();
+        List<CourseModule> courseModules = new ArrayList<>();
+        for(Long courseModuleId : instructorDTO.getCourseModules()){
+            CourseModule courseModule = courseModuleService.findCourseModule(courseModuleId);
+            if(courseModule == null){
+                return new ResponseEntity("Course Module " + courseModuleId + " DOES NOT EXIST", HttpStatus.BAD_REQUEST);
+            }
+
+        }
+        instructor.setCourseModules(courseModules);
         instructor.setEmail(instructorDTO.getEmail());
         instructor.setFirstName(instructorDTO.getFirstName());
         instructor.setLastName(instructorDTO.getLastName());

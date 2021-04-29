@@ -112,9 +112,19 @@ public class DtoUtility {
      * Instructor Conversion
      */
     public static InstructorDTO toInstructorDTO(Instructor instructor) {
-
-        return new InstructorDTO(instructor.getId(), instructor.getFirstName(), instructor.getLastName(), instructor.getEmail(), instructor.getUsername(), instructor.getCourseModules());
-
+        InstructorDTO instructorDTO = new InstructorDTO();
+        instructorDTO.setId(instructor.getId());
+        instructorDTO.setFirstName(instructor.getFirstName());
+        instructorDTO.setLastName(instructor.getLastName());
+        instructorDTO.setEmail(instructor.getEmail());
+        instructorDTO.setRoleType(instructor.getRoleType());
+        instructorDTO.setUsername(instructor.getUsername());
+        List<Long> courseModuleIds = new ArrayList<>();
+        for(CourseModule courseModule : instructor.getCourseModules()){
+            courseModuleIds.add(courseModule.getId());
+        }
+        instructorDTO.setCourseModules(courseModuleIds);
+        return instructorDTO;
     }
 
     public static Instructor toInstructor(InstructorDTO instructorDTO) {
@@ -125,7 +135,7 @@ public class DtoUtility {
         instructor.setEmail(instructorDTO.getEmail());
         instructor.setUsername(instructorDTO.getUsername());
         instructor.setRoleType(instructorDTO.getRoleType());
-        instructor.setCourseModules(instructorDTO.getCourseModules());
+        instructor.setCourseModules(new ArrayList<>());
         return instructor;
     }
 
@@ -323,6 +333,7 @@ public class DtoUtility {
     public static ChapterDTO toChapterDTO(Chapter chapter){
         ChapterDTO chapterDTO = new ChapterDTO();
         chapterDTO.setId(chapter.getId());
+        chapterDTO.setCourseModuleId(chapter.getCourseModule().getId());
 
         if(chapter.getSections() == null){
             return chapterDTO;

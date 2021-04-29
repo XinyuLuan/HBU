@@ -11,6 +11,7 @@ import com.hbu.backend.model.entity.course.Course;
 import com.hbu.backend.model.entity.course.CourseModule;
 import com.hbu.backend.model.entity.course.Grade;
 import com.hbu.backend.model.utility.DtoUtility;
+import com.hbu.backend.repository.StudentRepository;
 import com.hbu.backend.service.InstructorService;
 import com.hbu.backend.service.StudentService;
 import com.hbu.backend.service.course.ChapterService;
@@ -30,6 +31,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/courseModule")
@@ -58,15 +60,25 @@ public class CourseModuleController {
     @PostMapping("/add")
     public ResponseEntity<CourseModuleDTO> saveCourseModule(@RequestBody CourseModuleDTO courseModuleDTO) {
         CourseModule courseModule = new CourseModule();
-        courseModule.setInstructor(instructorService.findInstructor(courseModuleDTO.getInstructorId()));
-        courseModule.setCourse(courseService.findCourse(courseModuleDTO.getCourseId()));
-        Course course = courseService.findCourse(courseModule.getCourse().getId());
+
+        Instructor instructor = instructorService.findInstructor(courseModuleDTO.getInstructorId());
+        if(instructor == null){
+            return new ResponseEntity("Instructor" + courseModuleDTO.getInstructorId() + " NOT EXIST", HttpStatus.BAD_REQUEST);
+        }
+        courseModule.setInstructor(instructor);
+
+        Course course = courseService.findCourse(courseModuleDTO.getCourseId());
+        if(course == null){
+            return new ResponseEntity("Course" + courseModuleDTO.getInstructorId() + " NOT EXIST", HttpStatus.BAD_REQUEST);
+        }
+        courseModule.setCourse(course);
 
         courseModule.setChapters(new ArrayList<>());
         courseModule.setStudents(new HashSet<>());
         courseModule.setGrades(new HashSet<>());
 
         course.addCourseModule(courseModule);
+        instructor.addCourseModule(courseModule);
 
         return new ResponseEntity<CourseModuleDTO>(DtoUtility.toCourseModuleDTO(courseModuleService.saveCourseModule(courseModule)), HttpStatus.OK);
     }
@@ -127,25 +139,6 @@ public class CourseModuleController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteCourseModule(@PathVariable Long id) {
-        CourseModule courseModule = courseModuleService.findCourseModule(id);
-
-        if (courseModule == null) {
-            return new ResponseEntity("CourseModel " + id + " NOT EXIST", HttpStatus.BAD_REQUEST);
-        }
-
-        Course course = courseModule.getCourse();
-        course.deleteCourseModule(courseModule);
-
-        courseService.saveCourse(course);
-
-        // Clear all of the foreign key in course module
-        courseModule.setInstructor(new Instructor());
-        courseModule.setCourse(new Course());
-        courseModule.setStudents(new HashSet<>());
-        courseModule.setChapters(new ArrayList<>());
-        courseModule.setGrades(new HashSet<>());
-        courseModuleService.saveCourseModule(courseModule);
-
         courseModuleService.deleteCourseModule(id);
         return new ResponseEntity("Course Model " + id + " DELETE SUCCESSFUL", HttpStatus.OK);
     }
@@ -221,8 +214,14 @@ public class CourseModuleController {
         if(courseModule == null){
             return new ResponseEntity("CourseModel " + courseModuleId + " NOT EXIST", HttpStatus.BAD_REQUEST);
         }
+
+        if(courseModule.findStudent(studentId) != null){
+            return new ResponseEntity("Student " + studentId + " HAVE ENROLLED COURSE MODULE " + courseModuleId, HttpStatus.BAD_REQUEST);
+        }
         // Add an exist student
         courseModule.addStudent(student);
+        courseModule = courseModuleService.saveCourseModule(courseModule);
+        student.addCourseModule(courseModule);
 
         // Set default for the student
         Grade grade = new Grade();
@@ -251,6 +250,7 @@ public class CourseModuleController {
         // Delete grade first
         courseModule.deleteGrade(student);
         courseModule.deleteStudent(student);
+        student.deleteCourseModule(courseModule);
         return new ResponseEntity<CourseModuleDTO>(DtoUtility.toCourseModuleDTO(courseModuleService.saveCourseModule(courseModule)), HttpStatus.OK);
     }
 
