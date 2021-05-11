@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright (c) 2018 codenerve.com
+  ~
+  ~ You may study, use, and modify this example. Redistribution is not permitted.
+  -->
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<!-- Load the layout of the sidebar -->
+<link rel="stylesheet" href="css/sidebar.css">
+<!-- Load an icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<!-- The sidebar -->
+<div class="sidebar">
+    <a href="#home"><i class="fa fa-fw fa-home"></i> Home</a>
+    <a th:href="@{/services}"><i class="fa fa-fw fa-wrench"></i>Services</a>
+    <a href="#clients"><i class="fa fa-fw fa-user"></i> Clients</a>
+    <a href="#contact"><i class="fa fa-fw fa-envelope"></i> Contact</a>
+</div>
+
+<div class="main">
+    <body>
+        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
+
+        <div>
+            Custom administrator page.
+        </div>
+
+
+        <br/>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </body>
+</div>
+
+<!--<head>-->
+<!--    <title>codenerve.com - Welcome!</title>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Admin</title>-->
+<!--    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">-->
+<!--    <link rel="stylesheet" href="css/style.css">-->
+<!--</head>-->
+<!--    <body>-->
+<!--        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
+
+<!--        <div>-->
+<!--             Custom administrator page.-->
+<!--        </div>-->
+
+
+<!--        <br/>-->
+<!--        <form th:action="@{/logout}" method="post">-->
+<!--            <input type="submit" value="Sign Out"/>-->
+<!--        </form>-->
+<!--    </body>-->
+<!--</html>-->
